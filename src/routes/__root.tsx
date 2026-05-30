@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import type { ReactNode } from 'react'
+import { type ReactNode, useState } from 'react'
 import {
 	createRootRoute,
 	HeadContent,
@@ -42,12 +42,16 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+	const [dark, setDark] = useState(false)
+	const toggleDark = () => setDark(!dark)
+
 	return (
-		<html>
+		<html className={dark ? 'dark' : ''}>
 			<head>
 				<HeadContent />
 			</head>
 			<body cz-shortcut-listen="true">
+				<button onClick={toggleDark}>{dark ? '☀️' : '🌙'}</button>
 				{children}
 				<Scripts />
 			</body>

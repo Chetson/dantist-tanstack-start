@@ -5,3 +5,4 @@ dist
 .output
 .zed
 .vscode
+.env.local

@@ -1,7 +1,19 @@
 {
-  "name": "tanstack-start",
-  "version": "1.0.0",
+  "name": "dantist-tanstack-start",
+  "version": "0.1.0",
+  "author": "Lis Chetson",
+  "license": "ISC",
   "description": "",
+  "keywords": [],
+  "type": "module",
+  "homepage": "https://github.com/Chetson/dantist-tanstack-start#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chetson/dantist-tanstack-start.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Chetson/dantist-tanstack-start/issues"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "vite dev",
@@ -10,28 +22,26 @@
     "lint": "eslint src/",
     "lint:fix": "eslint --fix src/",
     "format": "prettier --write src/",
-    "format:check": "prettier --check src/"
+    "format:check": "prettier --check src/",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:push": "prisma db push",
+    "db:seed": "npx tsx prisma/seed.ts",
+    "db:generate": "prisma generate",
+    "db:studio": "prisma studio"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Chetson/tanstack-start.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "bugs": {
-    "url": "https://github.com/Chetson/tanstack-start/issues"
-  },
-  "homepage": "https://github.com/Chetson/tanstack-start#readme",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "@tailwindcss/vite": "^4.3.0",
     "@tanstack/react-router": "^1.170.10",
     "@tanstack/react-start": "^1.168.17",
     "nitro": "^3.0.260522-beta",
+    "pg": "^8.21.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "tailwindcss": "^4.3.0"
+    "tailwindcss": "^4.3.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -39,10 +49,13 @@
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
+    "dotenv": "^17.4.2",
     "eslint": "^10.4.1",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "prettier": "3.8.3",
+    "prisma": "^7.8.0",
+    "tsx": "^4.19.2",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.0",
     "vite": "^8.0.14"

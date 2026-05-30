@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ========== Филиалы (Offices) ==========
+model Office {
+  id             String    @id @default(uuid())
+  slug           String    @unique
+  name           String
+  fullAddress    String
+  phones         String[]  // PostgreSQL array
+  email          String    @default("pacientdantist@yandex.ru")
+  workingHours   Json      // { monday_friday: "09:00-19:00", saturday: "09:00-14:00", sunday: "выходной" }
+  mapCoordinates Json?     // { lat: number, lng: number }
+  yandexMapUrl   String?
+  gis2Url        String?
+  sortOrder      Int       @default(0)
+
+  // Связь многие-ко-многим через связующую таблицу
+  doctors DoctorOffice[]
+
+  @@map("offices")
+}
+
+// ========== Врачи ==========
+model Doctor {
+  id               String    @id @default(uuid())
+  fullName         String
+  position         String
+  specializations  String[]  // массив строк
+  photoUrl         String?
+  isHeadDoctor     Boolean   @default(false)
+  isActive         Boolean   @default(true)
+  sortOrder        Int       @default(0)
+
+  // JSON-поля для сложных вложенных данных
+  educations       Json      // массив DoctorEducation
+  accreditations   Json      // массив DoctorAccreditation
+  advancedTrainings Json?    // массив DoctorAdvancedTraining (опционально)
+
+  // Связь многие-ко-многим через связующую таблицу
+  offices DoctorOffice[]
+
+  @@map("doctors")
+}
+
+// ========== Связующая таблица (многие-ко-многим) ==========
+model DoctorOffice {
+  doctorId   String
+  officeId   String
+
+  doctor Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  office Office @relation(fields: [officeId], references: [id], onDelete: Cascade)
+
+  @@id([doctorId, officeId])
+  @@map("doctor_offices")
+}
