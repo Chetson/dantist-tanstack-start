@@ -38,6 +38,9 @@ export const OfficeSchema = z.object({
 	yandexMapUrl: z.string().url().optional(),
 	gis2Url: z.string().url().optional(),
 
+	// Фотография филиала
+	photoUrl: z.string().url().optional(),
+
 	// Порядок сортировки
 	sortOrder: z.number().default(0),
 })

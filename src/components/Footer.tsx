@@ -1,53 +1,55 @@
-const companyLinks = [
+import { Link } from '@tanstack/react-router'
+
+type FooterLinkItem =
+	| { title: string; to: string; href?: never }
+	| { title: string; to?: never; href: string }
+
+const clinicLinks: FooterLinkItem[] = [
 	{
-		title: 'About',
+		title: 'Главная',
+		to: '/',
+	},
+	{
+		title: 'О клинике',
+		to: '/about',
+	},
+	{
+		title: 'Врачи',
+		to: '/doctors',
+	},
+	{
+		title: 'Услуги',
+		to: '/services',
+	},
+]
+
+const patientLinks: FooterLinkItem[] = [
+	{
+		title: 'Контакты',
+		to: '/contacts',
+	},
+	{
+		title: 'Запись на приём',
 		href: '#',
 	},
 	{
-		title: 'Terms of Service',
-		href: '#',
-	},
-	{
-		title: 'Privacy Policy',
-		href: '#',
-	},
-	{
-		title: 'Cookie Policy',
+		title: 'Вопрос-ответ',
 		href: '#',
 	},
 ]
 
-const solutionLinks = [
+const infoLinks: FooterLinkItem[] = [
 	{
-		title: 'Business Line of Credit',
-		href: '#',
+		title: 'Контролирующие органы',
+		to: '/about/regulators',
 	},
 	{
-		title: 'SBA Loan',
-		href: '#',
+		title: 'Политика конфиденциальности',
+		to: '/about/legal',
 	},
 	{
-		title: 'Revenue Based Financing',
-		href: '#',
-	},
-	{
-		title: 'Invoice Factoring',
-		href: '#',
-	},
-]
-
-const partnershipLinks = [
-	{
-		title: 'Loan Partner',
-		href: '#',
-	},
-	{
-		title: 'Affiliate',
-		href: '#',
-	},
-	{
-		title: 'Brand Guideline',
-		href: '#',
+		title: 'Лицензии',
+		to: '/about/license',
 	},
 ]
 
@@ -60,6 +62,30 @@ function Logo() {
 	)
 }
 
+function FooterLink({ item }: { item: FooterLinkItem }) {
+	if ('to' in item) {
+		return (
+			<Link
+				className="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
+				to={item.to}
+			>
+				{item.title}
+			</Link>
+		)
+	}
+
+	return (
+		<a
+			className="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
+			href={item.href}
+			rel="noopener noreferrer"
+			target="_blank"
+		>
+			{item.title}
+		</a>
+	)
+}
+
 export const Footer = () => {
 	return (
 		<footer className="mt-28 bg-slate-50 dark:bg-black">
@@ -67,59 +93,41 @@ export const Footer = () => {
 				<div className="flex w-full flex-col space-y-4 text-center md:w-2/5 md:text-left">
 					<Logo />
 					<p className="text-sm text-slate-600">
-						UniqueFund provides access to fast and reliable financing solutions
-						for SMEs.
+						Пн-пт 09:00 – 19:00
+						<br />
+						Сб 09:00 – 14:00
+						<br />
+						Вс – выходной день
+						<br />
+						Эл.почта для обращений: pacientdantist@yandex.ru
 					</p>
 				</div>
 				<div className="w-full text-center text-slate-600 md:w-1/5 md:text-left">
-					<div className="text-sm font-semibold">Company</div>
+					<div className="text-sm font-semibold">Клиника</div>
 					<ul className="text-sm">
-						{companyLinks.map(({ title, href }, index) => (
+						{clinicLinks.map((item, index) => (
 							<li className="pt-3" key={index}>
-								<a
-									className="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-									href={href}
-									rel="noopener noreferrer"
-									target="_blank"
-								>
-									{title}
-								</a>
+								<FooterLink item={item} />
 							</li>
 						))}
 					</ul>
 				</div>
 				<div className="w-full text-center text-slate-600 md:w-1/5 md:text-left">
-					<div className="text-sm font-semibold">Solutions</div>
+					<div className="text-sm font-semibold">Пациенту</div>
 					<ul className="text-sm">
-						{solutionLinks.map(({ title, href }, index) => (
+						{patientLinks.map((item, index) => (
 							<li className="pt-3" key={index}>
-								<a
-									className="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-									href={href}
-									rel="noopener noreferrer"
-									target="_blank"
-								>
-									{title}
-								</a>
+								<FooterLink item={item} />
 							</li>
 						))}
 					</ul>
 				</div>
 				<div className="w-full text-center text-slate-600 md:w-1/5 md:text-left">
-					<div className="text-sm font-semibold text-slate-600">
-						Partnership
-					</div>
+					<div className="text-sm font-semibold text-slate-600">Информация</div>
 					<ul className="text-sm">
-						{partnershipLinks.map(({ title, href }, index) => (
+						{infoLinks.map((item, index) => (
 							<li className="pt-3" key={index}>
-								<a
-									className="underline decoration-transparent underline-offset-4 transition hover:decoration-slate-700"
-									href={href}
-									rel="noopener noreferrer"
-									target="_blank"
-								>
-									{title}
-								</a>
+								<FooterLink item={item} />
 							</li>
 						))}
 					</ul>
@@ -127,7 +135,8 @@ export const Footer = () => {
 			</div>
 
 			<div className="container mx-auto border-t border-slate-200 p-8 text-center text-sm text-slate-600 dark:border-slate-900 md:flex-row md:px-12">
-				&copy; {new Date().getFullYear()} UniqueFund. All rights reserved.
+				&copy; 2003 &mdash; {new Date().getFullYear()} Стоматологические клиники
+				«Дантист». Все права защищены.
 			</div>
 		</footer>
 	)

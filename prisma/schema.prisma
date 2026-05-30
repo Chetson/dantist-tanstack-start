@@ -18,6 +18,7 @@ model Office {
   mapCoordinates Json?     // { lat: number, lng: number }
   yandexMapUrl   String?
   gis2Url        String?
+  photoUrl       String?
   sortOrder      Int       @default(0)
 
   // Связь многие-ко-многим через связующую таблицу

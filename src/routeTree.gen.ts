@@ -11,7 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppServicesIndexRouteImport } from './routes/_app/services/index'
 import { Route as AppDoctorsIndexRouteImport } from './routes/_app/doctors/index'
+import { Route as AppContactsIndexRouteImport } from './routes/_app/contacts/index'
+import { Route as AppAboutIndexRouteImport } from './routes/_app/about/index'
+import { Route as AppAboutRegulatorsRouteImport } from './routes/_app/about/regulators'
+import { Route as AppAboutLicenseRouteImport } from './routes/_app/about/license'
+import { Route as AppAboutLegalRouteImport } from './routes/_app/about/legal'
 
 const AppRoute = AppRouteImport.update({
   id: '/_app',
@@ -22,32 +28,106 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppServicesIndexRoute = AppServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppDoctorsIndexRoute = AppDoctorsIndexRouteImport.update({
   id: '/doctors/',
   path: '/doctors/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppContactsIndexRoute = AppContactsIndexRouteImport.update({
+  id: '/contacts/',
+  path: '/contacts/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAboutIndexRoute = AppAboutIndexRouteImport.update({
+  id: '/about/',
+  path: '/about/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAboutRegulatorsRoute = AppAboutRegulatorsRouteImport.update({
+  id: '/about/regulators',
+  path: '/about/regulators',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAboutLicenseRoute = AppAboutLicenseRouteImport.update({
+  id: '/about/license',
+  path: '/about/license',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAboutLegalRoute = AppAboutLegalRouteImport.update({
+  id: '/about/legal',
+  path: '/about/legal',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
+  '/about/legal': typeof AppAboutLegalRoute
+  '/about/license': typeof AppAboutLicenseRoute
+  '/about/regulators': typeof AppAboutRegulatorsRoute
+  '/about/': typeof AppAboutIndexRoute
+  '/contacts/': typeof AppContactsIndexRoute
   '/doctors/': typeof AppDoctorsIndexRoute
+  '/services/': typeof AppServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
+  '/about/legal': typeof AppAboutLegalRoute
+  '/about/license': typeof AppAboutLicenseRoute
+  '/about/regulators': typeof AppAboutRegulatorsRoute
+  '/about': typeof AppAboutIndexRoute
+  '/contacts': typeof AppContactsIndexRoute
   '/doctors': typeof AppDoctorsIndexRoute
+  '/services': typeof AppServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
   '/_app/': typeof AppIndexRoute
+  '/_app/about/legal': typeof AppAboutLegalRoute
+  '/_app/about/license': typeof AppAboutLicenseRoute
+  '/_app/about/regulators': typeof AppAboutRegulatorsRoute
+  '/_app/about/': typeof AppAboutIndexRoute
+  '/_app/contacts/': typeof AppContactsIndexRoute
   '/_app/doctors/': typeof AppDoctorsIndexRoute
+  '/_app/services/': typeof AppServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/doctors/'
+  fullPaths:
+    | '/'
+    | '/about/legal'
+    | '/about/license'
+    | '/about/regulators'
+    | '/about/'
+    | '/contacts/'
+    | '/doctors/'
+    | '/services/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/doctors'
-  id: '__root__' | '/_app' | '/_app/' | '/_app/doctors/'
+  to:
+    | '/'
+    | '/about/legal'
+    | '/about/license'
+    | '/about/regulators'
+    | '/about'
+    | '/contacts'
+    | '/doctors'
+    | '/services'
+  id:
+    | '__root__'
+    | '/_app'
+    | '/_app/'
+    | '/_app/about/legal'
+    | '/_app/about/license'
+    | '/_app/about/regulators'
+    | '/_app/about/'
+    | '/_app/contacts/'
+    | '/_app/doctors/'
+    | '/_app/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -70,6 +150,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/services/': {
+      id: '/_app/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof AppServicesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/doctors/': {
       id: '/_app/doctors/'
       path: '/doctors'
@@ -77,17 +164,64 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDoctorsIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/contacts/': {
+      id: '/_app/contacts/'
+      path: '/contacts'
+      fullPath: '/contacts/'
+      preLoaderRoute: typeof AppContactsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/about/': {
+      id: '/_app/about/'
+      path: '/about'
+      fullPath: '/about/'
+      preLoaderRoute: typeof AppAboutIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/about/regulators': {
+      id: '/_app/about/regulators'
+      path: '/about/regulators'
+      fullPath: '/about/regulators'
+      preLoaderRoute: typeof AppAboutRegulatorsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/about/license': {
+      id: '/_app/about/license'
+      path: '/about/license'
+      fullPath: '/about/license'
+      preLoaderRoute: typeof AppAboutLicenseRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/about/legal': {
+      id: '/_app/about/legal'
+      path: '/about/legal'
+      fullPath: '/about/legal'
+      preLoaderRoute: typeof AppAboutLegalRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
+  AppAboutLegalRoute: typeof AppAboutLegalRoute
+  AppAboutLicenseRoute: typeof AppAboutLicenseRoute
+  AppAboutRegulatorsRoute: typeof AppAboutRegulatorsRoute
+  AppAboutIndexRoute: typeof AppAboutIndexRoute
+  AppContactsIndexRoute: typeof AppContactsIndexRoute
   AppDoctorsIndexRoute: typeof AppDoctorsIndexRoute
+  AppServicesIndexRoute: typeof AppServicesIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppIndexRoute: AppIndexRoute,
+  AppAboutLegalRoute: AppAboutLegalRoute,
+  AppAboutLicenseRoute: AppAboutLicenseRoute,
+  AppAboutRegulatorsRoute: AppAboutRegulatorsRoute,
+  AppAboutIndexRoute: AppAboutIndexRoute,
+  AppContactsIndexRoute: AppContactsIndexRoute,
   AppDoctorsIndexRoute: AppDoctorsIndexRoute,
+  AppServicesIndexRoute: AppServicesIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
