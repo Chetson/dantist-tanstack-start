@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { MapPin, Clock, Phone } from 'lucide-react'
+import { Clock, MapPin, Phone } from 'lucide-react'
 
 export const Route = createFileRoute('/_app/contacts/')({
 	component: RouteComponent,

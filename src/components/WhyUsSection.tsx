@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { ShieldCheck, Zap, Heart, Smile, ClipboardCheck } from 'lucide-react'
+import { ClipboardCheck, Heart, ShieldCheck, Smile, Zap } from 'lucide-react'
 
 const benefits = [
 	{

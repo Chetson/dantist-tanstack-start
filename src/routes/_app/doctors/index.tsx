@@ -3,7 +3,7 @@ import { getOffices } from '../../../server-fns/doctors'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Badge } from '~/components/ui/badge'
 import { Separator } from '~/components/ui/separator'
-import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import { Clock, Mail, MapPin, Phone } from 'lucide-react'
 import type { Doctor, Office } from '@prisma/client'
 
 export const Route = createFileRoute('/_app/doctors/')({
@@ -11,6 +11,7 @@ export const Route = createFileRoute('/_app/doctors/')({
 		const offices = await getOffices()
 		return offices
 	},
+
 	component: DoctorsPage,
 })
 

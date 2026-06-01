@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Badge } from '~/components/ui/badge'
-import { Separator } from '~/components/ui/separator'
 import { Circle } from 'lucide-react'
 
 export const Route = createFileRoute('/_app/services/')({
@@ -157,10 +156,6 @@ const implantation = {
 /* ------------------------------------------------------------------ */
 /*  Вспомогательные компоненты                                         */
 /* ------------------------------------------------------------------ */
-
-function SectionHeading({ children }: { children: React.ReactNode }) {
-	return <h2 className="mb-6 text-2xl font-bold sm:text-3xl">{children}</h2>
-}
 
 function SubHeading({ children }: { children: React.ReactNode }) {
 	return <h3 className="mb-3 text-lg font-semibold">{children}</h3>

@@ -1,4 +1,4 @@
-import { Monitor, BookOpen, ShieldCheck, Moon } from 'lucide-react'
+import { BookOpen, Monitor, Moon, ShieldCheck } from 'lucide-react'
 
 const advantages = [
 	{

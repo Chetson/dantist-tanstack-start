@@ -8,7 +8,7 @@ import {
 	TableHeader,
 	TableRow,
 } from '~/components/ui/table'
-import { MapPin, Phone, Globe } from 'lucide-react'
+import { Globe, MapPin, Phone } from 'lucide-react'
 
 export const Route = createFileRoute('/_app/about/regulators')({
 	component: RouteComponent,

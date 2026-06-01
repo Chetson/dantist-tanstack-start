@@ -2,7 +2,7 @@ import type { Office } from '../entities'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Badge } from '~/components/ui/badge'
 import { Separator } from '~/components/ui/separator'
-import { Building2, MapPin, Clock, Phone } from 'lucide-react'
+import { Building2, Clock, MapPin, Phone } from 'lucide-react'
 
 function PlaceholderImage({ name }: { name: string }) {
 	return (
