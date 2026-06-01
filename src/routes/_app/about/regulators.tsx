@@ -1,4 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from '~/components/ui/table'
+import { MapPin, Phone, Globe } from 'lucide-react'
 
 export const Route = createFileRoute('/_app/about/regulators')({
 	component: RouteComponent,
@@ -106,9 +116,7 @@ function Section({
 }) {
 	return (
 		<section className="mb-12">
-			<h2 className="mb-6 text-2xl font-bold text-slate-800 dark:text-slate-100">
-				{title}
-			</h2>
+			<h2 className="mb-6 text-2xl font-bold">{title}</h2>
 			{children}
 		</section>
 	)
@@ -116,49 +124,53 @@ function Section({
 
 function BodyCard({ body }: { body: Regulator }) {
 	return (
-		<div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-			<h3 className="mb-1 text-lg font-bold text-slate-800 dark:text-slate-100">
-				{body.title}
-			</h3>
-
-			{body.fullName && (
-				<p className="mb-3 text-sm text-slate-600 dark:text-slate-400">
-					{body.fullName}
-				</p>
-			)}
-
-			<h4 className="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-				Основные функции:
-			</h4>
-			<ul className="mb-4 list-inside list-disc space-y-1 text-sm text-slate-600 dark:text-slate-400">
-				{body.functions.map((fn) => (
-					<li key={fn}>{fn}</li>
-				))}
-			</ul>
-
-			<div className="rounded-lg bg-slate-50 p-4 dark:bg-slate-800">
-				<h4 className="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-					Контакты
-				</h4>
-				<div className="space-y-1 text-sm text-slate-600 dark:text-slate-400">
-					{body.address && <p>📍 {body.address}</p>}
-					{body.phone && <p>📞 {body.phone}</p>}
-					{body.site && (
-						<p>
-							🌐{' '}
-							<a
-								className="text-pink-500 underline transition hover:text-pink-600"
-								href={body.site}
-								rel="noopener noreferrer"
-								target="_blank"
-							>
-								{body.siteLabel ?? body.site}
-							</a>
-						</p>
-					)}
+		<Card>
+			<CardHeader>
+				<CardTitle>{body.title}</CardTitle>
+				{body.fullName && (
+					<p className="text-sm text-muted-foreground">{body.fullName}</p>
+				)}
+			</CardHeader>
+			<CardContent className="space-y-4">
+				<div>
+					<h4 className="mb-2 text-sm font-semibold">Основные функции:</h4>
+					<ul className="list-inside list-disc space-y-1 text-sm text-muted-foreground">
+						{body.functions.map((fn) => (
+							<li key={fn}>{fn}</li>
+						))}
+					</ul>
 				</div>
-			</div>
-		</div>
+
+				<Card className="bg-muted/50 shadow-none">
+					<CardContent className="p-4 space-y-1 text-sm">
+						<h4 className="font-semibold">Контакты</h4>
+						{body.address && (
+							<p className="flex items-center gap-1.5 text-muted-foreground">
+								<MapPin className="size-3.5 shrink-0" /> {body.address}
+							</p>
+						)}
+						{body.phone && (
+							<p className="flex items-center gap-1.5 text-muted-foreground">
+								<Phone className="size-3.5 shrink-0" /> {body.phone}
+							</p>
+						)}
+						{body.site && (
+							<p className="flex items-center gap-1.5">
+								<Globe className="size-3.5 shrink-0 text-muted-foreground" />
+								<a
+									className="text-primary underline transition hover:text-primary/80"
+									href={body.site}
+									rel="noopener noreferrer"
+									target="_blank"
+								>
+									{body.siteLabel ?? body.site}
+								</a>
+							</p>
+						)}
+					</CardContent>
+				</Card>
+			</CardContent>
+		</Card>
 	)
 }
 
@@ -171,59 +183,46 @@ function DocTable({
 }) {
 	return (
 		<div className="mb-6">
-			<h3 className="mb-3 text-base font-semibold text-slate-700 dark:text-slate-300">
-				{title}
-			</h3>
-			<div className="overflow-x-auto">
-				<table className="w-full text-left text-sm">
-					<thead>
-						<tr className="border-b border-slate-200 dark:border-slate-700">
-							<th className="pb-2 pr-4 font-semibold text-slate-600 dark:text-slate-400">
-								Документ
-							</th>
-							<th className="pb-2 font-semibold text-slate-600 dark:text-slate-400">
-								Ссылка
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{items.map((doc) => (
-							<tr
-								key={doc.title}
-								className="border-b border-slate-100 dark:border-slate-800"
-							>
-								<td className="py-3 pr-4 text-slate-700 dark:text-slate-300">
-									{doc.title}
-								</td>
-								<td className="py-3">
-									<a
-										className="text-pink-500 underline transition hover:text-pink-600"
-										href={doc.url}
-										rel="noopener noreferrer"
-										target="_blank"
-									>
-										Ссылка
-									</a>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
-			</div>
+			<h3 className="mb-3 text-base font-semibold">{title}</h3>
+			<Table>
+				<TableHeader>
+					<TableRow>
+						<TableHead>Документ</TableHead>
+						<TableHead className="w-[100px]">Ссылка</TableHead>
+					</TableRow>
+				</TableHeader>
+				<TableBody>
+					{items.map((doc) => (
+						<TableRow key={doc.title}>
+							<TableCell className="whitespace-normal">{doc.title}</TableCell>
+							<TableCell>
+								<a
+									className="text-primary underline transition hover:text-primary/80"
+									href={doc.url}
+									rel="noopener noreferrer"
+									target="_blank"
+								>
+									Ссылка
+								</a>
+							</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
 		</div>
 	)
 }
 
 function RouteComponent() {
 	return (
-		<main className="container mx-auto px-8 py-16 sm:px-12">
-			<h1 className="mb-2 text-3xl font-bold text-slate-800 dark:text-slate-100 sm:text-4xl">
+		<main className="container mx-auto px-6 py-16 sm:px-12">
+			<h1 className="mb-2 text-3xl font-bold sm:text-4xl">
 				Контролирующие органы в сфере здравоохранения
 			</h1>
-			<p className="mb-2 text-lg font-medium text-slate-500 dark:text-slate-400">
+			<p className="mb-2 text-lg font-medium text-muted-foreground">
 				Важная информация для пациентов
 			</p>
-			<p className="mb-12 max-w-3xl leading-relaxed text-slate-600 dark:text-slate-400">
+			<p className="mb-12 max-w-3xl leading-relaxed text-muted-foreground">
 				Уважаемые пациенты! Ниже представлены контролирующие органы, которые
 				осуществляют надзор за деятельностью медицинских организаций в
 				Курганской области. Вы можете обратиться в эти инстанции по вопросам

@@ -1,12 +1,12 @@
 export default function AboutSection() {
 	return (
 		<section className="py-16 sm:py-20">
-			<div className="container mx-auto px-8 sm:px-12">
+			<div className="container mx-auto px-6 sm:px-12">
 				<div className="mx-auto max-w-3xl text-center">
-					<h2 className="mb-6 text-2xl font-bold text-slate-800 dark:text-slate-100 sm:text-3xl">
+					<h2 className="mb-6 text-2xl font-bold sm:text-3xl">
 						О клинике «Дантист»
 					</h2>
-					<p className="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+					<p className="text-lg leading-relaxed text-muted-foreground">
 						Стоматология «Дантист» работает в Кургане с 2003 года. Мы
 						специализируемся на терапии, ортопедии, хирургии, имплантации,
 						профессиональной чистке и гигиене. У нас собраны почти все

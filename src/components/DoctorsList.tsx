@@ -1,8 +1,15 @@
-import { Navigation, Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import {
+	Carousel,
+	CarouselContent,
+	CarouselDots,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from '~/components/ui/carousel'
+import { Badge } from '~/components/ui/badge'
+import { Separator } from '~/components/ui/separator'
+import { MapPin, User } from 'lucide-react'
 
 import type { Prisma } from '@prisma/client'
 
@@ -20,8 +27,8 @@ function DoctorCard({ doctor }: { doctor: DoctorWithOffices }) {
 	const photoUrl = doctor.photoUrl
 
 	return (
-		<div className="h-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
-			<div className="flex h-48 items-center justify-center bg-slate-100 dark:bg-slate-800">
+		<Card className="h-full overflow-hidden transition-shadow hover:shadow-md">
+			<div className="flex h-48 items-center justify-center bg-muted">
 				{photoUrl ? (
 					<img
 						alt={doctor.fullName}
@@ -29,67 +36,54 @@ function DoctorCard({ doctor }: { doctor: DoctorWithOffices }) {
 						src={photoUrl}
 					/>
 				) : (
-					<div className="text-center text-slate-400">
-						<svg
-							className="mx-auto mb-2 h-16 w-16"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={1}
-								d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-							/>
-						</svg>
+					<div className="text-center text-muted-foreground">
+						<User className="mx-auto mb-2 size-16" />
 						<span className="text-sm">Нет фото</span>
 					</div>
 				)}
 			</div>
 
-			<div className="p-4">
-				<h3 className="mb-1 text-lg font-bold text-slate-800 dark:text-slate-100">
-					{doctor.fullName}
-				</h3>
-				<p className="mb-2 text-sm font-medium text-pink-500">
-					{doctor.position}
-				</p>
+			<CardHeader>
+				<CardTitle>{doctor.fullName}</CardTitle>
+				<p className="text-sm font-medium text-primary">{doctor.position}</p>
+			</CardHeader>
 
+			<CardContent className="space-y-4">
 				{doctor.specializations.length > 0 && (
-					<div className="mb-3 flex flex-wrap gap-1">
+					<div className="flex flex-wrap gap-1">
 						{doctor.specializations.map((spec: string) => (
-							<span
-								key={spec}
-								className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-400"
-							>
+							<Badge key={spec} variant="secondary" className="text-xs">
 								{spec}
-							</span>
+							</Badge>
 						))}
 					</div>
 				)}
 
 				{doctor.offices.length > 0 && (
-					<div className="border-t border-slate-100 pt-3 dark:border-slate-700">
-						<p className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
-							Ведёт приём в филиалах:
-						</p>
-						<ul className="space-y-0.5">
-							{doctor.offices.map(
-								({ office }: { office: { id: string; name: string } }) => (
-									<li
-										key={office.id}
-										className="text-sm text-slate-600 dark:text-slate-400"
-									>
-										{office.name}
-									</li>
-								),
-							)}
-						</ul>
-					</div>
+					<>
+						<Separator />
+						<div>
+							<p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+								Ведёт приём в филиалах:
+							</p>
+							<ul className="space-y-1">
+								{doctor.offices.map(
+									({ office }: { office: { id: string; name: string } }) => (
+										<li
+											key={office.id}
+											className="flex items-center gap-1.5 text-sm text-muted-foreground"
+										>
+											<MapPin className="size-3.5 shrink-0" />
+											{office.name}
+										</li>
+									),
+								)}
+							</ul>
+						</div>
+					</>
 				)}
-			</div>
-		</div>
+			</CardContent>
+		</Card>
 	)
 }
 
@@ -100,29 +94,31 @@ export function DoctorsList({ doctors }: { doctors: DoctorWithOffices[] }) {
 
 	return (
 		<section className="py-16">
-			<div className="container mx-auto px-8 sm:px-12">
-				<h2 className="mb-8 text-center text-2xl font-bold text-slate-800 dark:text-slate-100 sm:text-3xl">
+			<div className="container mx-auto px-6 sm:px-12">
+				<h2 className="mb-8 text-center text-2xl font-bold sm:text-3xl">
 					Наши врачи
 				</h2>
 
-				<Swiper
-					modules={[Navigation, Pagination]}
-					navigation
-					pagination={{ clickable: true }}
-					slidesPerView={1}
-					spaceBetween={20}
-					breakpoints={{
-						640: { slidesPerView: 2 },
-						1024: { slidesPerView: 3 },
-						1280: { slidesPerView: 4 },
+				<Carousel
+					opts={{
+						align: 'start',
 					}}
+					className="mx-auto w-full max-w-[calc(100%-3rem)] sm:max-w-[calc(100%-4rem)]"
 				>
-					{doctors.map((doctor) => (
-						<SwiperSlide key={doctor.id}>
-							<DoctorCard doctor={doctor} />
-						</SwiperSlide>
-					))}
-				</Swiper>
+					<CarouselContent className="-ml-4">
+						{doctors.map((doctor) => (
+							<CarouselItem
+								key={doctor.id}
+								className="pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+							>
+								<DoctorCard doctor={doctor} />
+							</CarouselItem>
+						))}
+					</CarouselContent>
+					<CarouselPrevious className="hidden sm:flex" />
+					<CarouselNext className="hidden sm:flex" />
+					<CarouselDots className="mt-6" />
+				</Carousel>
 			</div>
 		</section>
 	)

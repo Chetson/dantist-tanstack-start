@@ -6,6 +6,8 @@ import {
 	Outlet,
 	Scripts,
 } from '@tanstack/react-router'
+import { Button } from '~/components/ui/button'
+import { Moon, Sun } from 'lucide-react'
 import { ErrorComponent } from '../components/ErrorComponent'
 
 import appCss from '../app.css?url'
@@ -21,7 +23,7 @@ export const Route = createRootRoute({
 				content: 'width=device-width, initial-scale=1',
 			},
 			{
-				title: 'TanStack Start Starter',
+				title: 'Дантист — Стоматология в Кургане',
 			},
 		],
 		links: [
@@ -51,7 +53,15 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 				<HeadContent />
 			</head>
 			<body cz-shortcut-listen="true">
-				<button onClick={toggleDark}>{dark ? '☀️' : '🌙'}</button>
+				<Button
+					variant="ghost"
+					size="icon"
+					className="fixed top-20 right-4 z-50 rounded-full"
+					onClick={toggleDark}
+				>
+					{dark ? <Sun className="size-5" /> : <Moon className="size-5" />}
+					<span className="sr-only">Переключить тему</span>
+				</Button>
 				{children}
 				<Scripts />
 			</body>

@@ -46,7 +46,6 @@ function Home() {
 			<Hero />
 			<AboutSection />
 			<ServicesSection />
-			<ImportantNotice />
 			<ClinicsList offices={offices} />
 			<TeamSection />
 			<DoctorsList doctors={doctors} />

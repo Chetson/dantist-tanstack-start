@@ -1,22 +1,14 @@
 import type { Office } from '../entities'
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { Badge } from '~/components/ui/badge'
+import { Separator } from '~/components/ui/separator'
+import { Building2, MapPin, Clock, Phone } from 'lucide-react'
 
 function PlaceholderImage({ name }: { name: string }) {
 	return (
-		<div className="flex h-48 w-full items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
-			<div className="text-center text-slate-400">
-				<svg
-					className="mx-auto mb-2 h-12 w-12"
-					fill="none"
-					stroke="currentColor"
-					viewBox="0 0 24 24"
-				>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						strokeWidth={1.5}
-						d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-					/>
-				</svg>
+		<div className="flex h-48 w-full items-center justify-center rounded-t-xl bg-muted">
+			<div className="text-center text-muted-foreground">
+				<Building2 className="mx-auto mb-2 size-12" />
 				<span className="text-sm font-medium">{name}</span>
 			</div>
 		</div>
@@ -31,7 +23,7 @@ function ClinicCard({ office }: { office: Office }) {
 	}
 
 	return (
-		<div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
+		<Card className="overflow-hidden transition-shadow hover:shadow-md">
 			{office.photoUrl ? (
 				<img
 					alt={office.name}
@@ -42,50 +34,56 @@ function ClinicCard({ office }: { office: Office }) {
 				<PlaceholderImage name={office.name} />
 			)}
 
-			<div className="p-5">
-				<h3 className="mb-2 text-xl font-bold text-slate-800 dark:text-slate-100">
-					{office.name}
-				</h3>
-				<p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-					{office.fullAddress}
-				</p>
+			<CardHeader>
+				<CardTitle>{office.name}</CardTitle>
+			</CardHeader>
 
-				<div className="mb-4 space-y-1 text-sm text-slate-600 dark:text-slate-400">
-					<div className="flex justify-between">
-						<span>Пн–Пт</span>
-						<span className="font-medium text-slate-800 dark:text-slate-200">
-							{wh.monday_friday}
-						</span>
+			<CardContent className="space-y-4">
+				<div className="flex items-start gap-2 text-sm text-muted-foreground">
+					<MapPin className="mt-0.5 size-4 shrink-0" />
+					<span>{office.fullAddress}</span>
+				</div>
+
+				<div className="space-y-1.5">
+					<div className="flex items-center gap-2 text-sm text-muted-foreground">
+						<Clock className="size-4 shrink-0" />
+						<span className="font-medium text-foreground">Часы работы</span>
 					</div>
-					<div className="flex justify-between">
-						<span>Сб</span>
-						<span className="font-medium text-slate-800 dark:text-slate-200">
-							{wh.saturday}
-						</span>
-					</div>
-					<div className="flex justify-between">
-						<span>Вс</span>
-						<span className="font-medium text-slate-800 dark:text-slate-200">
-							{wh.sunday}
-						</span>
+					<div className="ml-6 space-y-1 text-sm">
+						<div className="flex justify-between">
+							<span className="text-muted-foreground">Пн–Пт</span>
+							<Badge variant="secondary">{wh.monday_friday}</Badge>
+						</div>
+						<div className="flex justify-between">
+							<span className="text-muted-foreground">Сб</span>
+							<Badge variant="secondary">{wh.saturday}</Badge>
+						</div>
+						<div className="flex justify-between">
+							<span className="text-muted-foreground">Вс</span>
+							<Badge variant="secondary">{wh.sunday}</Badge>
+						</div>
 					</div>
 				</div>
 
 				{office.phones.length > 0 && (
-					<div className="border-t border-slate-100 pt-3 dark:border-slate-700">
-						{office.phones.map((phone) => (
-							<a
-								key={phone}
-								className="block text-sm font-medium text-pink-500 transition hover:text-pink-600"
-								href={`tel:${phone.replace(/\s+/g, '')}`}
-							>
-								{phone}
-							</a>
-						))}
-					</div>
+					<>
+						<Separator />
+						<div className="space-y-1">
+							{office.phones.map((phone) => (
+								<a
+									key={phone}
+									className="flex items-center gap-2 text-sm font-medium text-primary transition hover:text-primary/80"
+									href={`tel:${phone.replace(/\s+/g, '')}`}
+								>
+									<Phone className="size-4" />
+									{phone}
+								</a>
+							))}
+						</div>
+					</>
 				)}
-			</div>
-		</div>
+			</CardContent>
+		</Card>
 	)
 }
 
@@ -95,8 +93,8 @@ export function ClinicsList({ offices }: { offices: Office[] }) {
 	}
 
 	return (
-		<section className="container mx-auto px-8 py-16 sm:px-12">
-			<h2 className="mb-8 text-center text-2xl font-bold text-slate-800 dark:text-slate-100 sm:text-3xl">
+		<section className="container mx-auto px-6 py-16 sm:px-12">
+			<h2 className="mb-8 text-center text-2xl font-bold sm:text-3xl">
 				Наши филиалы
 			</h2>
 			<div className="grid gap-6 sm:grid-cols-2">

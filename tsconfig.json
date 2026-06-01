@@ -19,6 +19,12 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
 
+    /* Path aliases */
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+
     /* Completeness */
     "skipLibCheck": true
   }
