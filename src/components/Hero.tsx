@@ -79,55 +79,61 @@ export default function Hero() {
 							</div>
 						</article>
 
-						<div className="flex gap-4 mt-6">
-							<div className="pt-2">
-								<img src={goodPlaceYandex} alt="Яндекс Хорошее место 2026" />
+						<div className="flex gap-10 mt-24">
+							<div className="flex gap-4">
+								<div className="pt-1">
+									<img
+										src={goodPlaceYandex}
+										alt="Яндекс Хорошее место 2026"
+										className="size-12 object-fill"
+									/>
+								</div>
+
+								<div>
+									<a
+										href="https://yandex.ru/project/maps/goodplace/"
+										target="_blank"
+										className="text font-semibold text-shadow-black hover:text-primary leading-3"
+									>
+										Хорошее место 2026
+									</a>
+									<p className="text-sm text-muted-foreground leading-2 mt-1">
+										Награда для любимых мест пользователей Яндекс Карт
+									</p>
+									<a
+										href="https://yandex.ru/maps/org/dantist/1117022926"
+										target="_blank"
+										className="text-xs leading-0 text-gray-400 hover:text-primary hover:underline"
+									>
+										Посмотреть на Яндекс.Картах
+									</a>
+								</div>
 							</div>
 
-							<div>
-								<a
-									href="https://yandex.ru/project/maps/goodplace/"
-									target="_blank"
-									className="text font-semibold text-shadow-black hover:text-primary leading-3"
-								>
-									Хорошее место 2026
-								</a>
-								<p className="text-sm text-muted-foreground leading-2 mt-1">
-									Награда для любимых мест пользователей Яндекс Карт
-								</p>
-								<a
-									href="https://yandex.ru/maps/org/dantist/1117022926"
-									target="_blank"
-									className="text-xs leading-0 text-gray-400 hover:text-primary hover:underline"
-								>
-									Посмотреть на Яндекс.Картах
-								</a>
-							</div>
-						</div>
+							<div className="flex gap-4">
+								<div className="pt-1 w-10.5">
+									<img src="/pin-silver.png" alt="Премия 2ГИС" />
+								</div>
 
-						<div className="flex gap-4 mt-6">
-							<div className="pt-1 w-10.5">
-								<img src="/pin-silver.png" alt="Премия 2ГИС" />
-							</div>
-
-							<div>
-								<a
-									href="https://awards.2gis.ru/"
-									target="_blank"
-									className="text font-semibold text-shadow-black hover:text-primary leading-3"
-								>
-									Номинант 2026
-								</a>
-								<p className="text-sm text-muted-foreground leading-2 mt-1">
-									Победителей определяет народная любовь
-								</p>
-								<a
-									href="https://2gis.ru/kurgan/firm/1407903164535921"
-									target="_blank"
-									className="text-xs leading-0 text-gray-400 hover:text-primary hover:underline"
-								>
-									Посмотреть в 2ГИС
-								</a>
+								<div>
+									<a
+										href="https://awards.2gis.ru/"
+										target="_blank"
+										className="text font-semibold text-shadow-black hover:text-primary leading-3"
+									>
+										Номинант 2026
+									</a>
+									<p className="text-sm text-muted-foreground leading-2 mt-1">
+										Победителей определяет народная любовь
+									</p>
+									<a
+										href="https://2gis.ru/kurgan/firm/1407903164535921"
+										target="_blank"
+										className="text-xs leading-0 text-gray-400 hover:text-primary hover:underline"
+									>
+										Посмотреть в 2ГИС
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
